@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{% block head %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{% endblock %}
+
 {% block header %}
 <header class="headerConsulta">
   <h3><a href="{% url 'index' %}" style="color: white;">Sistema Bibliotecário da <span class="titulo-laranja">EEEP Raimundo Célio Rodrigues</span></a></h3>
@@ -12,15 +18,74 @@
 {% block content %}
 <main>
   <h1>Cadastro de empréstimo</h1>
-  <div class="container">
+  <div class="container cadastro">
     <form action="{% url 'novoEmprestimo' %}" method="POST" class="formCadastro">
       {% csrf_token %}
       <div class="inputs">
-        {{form.livro}}
+        <div class="input">
+          <i class="bi bi-book"></i>
+          {{form.livro}}
+        </div>
+        <div class="input aluno">
+          <i class="bi bi-person-fill"></i>
+          {{form.aluno}}
+          <a href="{% url 'novo_aluno' %}" class="add-alunoBtn"><i class="bi bi-person-fill-add add-aluno" ></i></a>
+        </div>
       </div>
-      <button class="btn-laranja" type="submit" style="width: 300px; margin: 0 auto; cursor: pointer; margin-top: 1rem;">Cadastrar</button>
+      <button class="btn-laranja" id="btn" type="submit" style="width: 300px; margin: 0 auto; cursor: pointer; margin-top: 1rem;">Cadastrar</button>
     </form>
   </div>
+  <script>
+    function block() {
+      setInterval(() => {
+        document.getElementById("btn").disabled = true;
+      }, 10000);
+      document.getElementById('btn').disabled = false;
+    }
+  </script>
+  <script>
+    $(document).ready(function () {
+        // Inicialize o Select2 no campo específico
+        $('#id_livro').select2({
+            ajax: {
+                url: $('#id_livro').data('autocomplete-light-url'),
+                dataType: 'json',
+                delay: 250, // Atraso na busca
+                data: function (params) {
+                    return {
+                        q: params.term // Termo pesquisado
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.results // Resultados processados
+                    };
+                }
+            },
+            minimumInputLength: 0, // Só inicia após 2 caracteres
+            theme: "classic" // Tema opcional
+        });
+        $('#id_aluno').select2({
+            ajax: {
+                url: $('#id_aluno').data('autocomplete-light-url'),
+                dataType: 'json',
+                delay: 250, // Atraso na busca
+                data: function (params) {
+                    return {
+                        q: params.term // Termo pesquisado
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.results // Resultados processados
+                    };
+                }
+            },
+            minimumInputLength: 0, // Só inicia após 2 caracteres
+            theme: "classic" // Tema opcional
+        });
+    });
+  </script>
 </main>
 {% endblock %}
 
