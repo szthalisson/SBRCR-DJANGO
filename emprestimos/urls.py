@@ -9,4 +9,5 @@ urlpatterns = [
   path('novo-aluno/', views.novo_aluno, name='novo_aluno'),
   path('aluno-autocomplete/', views.AlunoAutocomplete.as_view(), name='aluno-autocomplete'),
   path('conclusao-emprestimo/<id_emprestimo>', views.conclusao_emprestimo, name='conclusao_emprestimo'),
+  path('novo-livro/', views.novo_livro, name='novo_livro'),
 ]

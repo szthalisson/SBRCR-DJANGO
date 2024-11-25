@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse
 from .models import Emprestimos, Aluno
 from .forms import PesquisaForm, EmprestimoForm, AlunoForm
 from django.db.models import Q
@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 from livros.models import Livro
 from dal import autocomplete
 from django.contrib.auth.decorators import login_required
+from livros.forms import LivroForm
 
 
 class LivroAutocomplete(autocomplete.Select2QuerySetView):
@@ -91,6 +92,21 @@ def novoEmprestimo(request):
   context = {'emprestimos': emps, 'form': form} 
 
   return render(request, 'emprestimos/cadastro.html', context)
+
+@login_required
+def novo_livro(request):
+  if request.method != 'POST':
+    form = LivroForm()
+  else:
+    form = LivroForm(request.POST)
+    if form.is_valid():
+      form.save()
+      messages.success(request, f"Livro {form.cleaned_data['titulo']} cadastrado com sucesso!")
+      return redirect('novoEmprestimo')
+
+  context = {'form': form}
+
+  return render(request, 'livro/cadastro.html', context)
 
 @login_required
 def conclusao_emprestimo(request, id_emprestimo):
