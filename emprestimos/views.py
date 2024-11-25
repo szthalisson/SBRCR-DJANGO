@@ -8,6 +8,7 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 from livros.models import Livro
 from dal import autocomplete
+from django.contrib.auth.decorators import login_required
 
 
 class LivroAutocomplete(autocomplete.Select2QuerySetView):
@@ -53,6 +54,7 @@ def somar_dias_a_data(data, dias):
     return nova_data
 
 # Create your views here.
+@login_required
 def emprestimos(request):
   emps = Emprestimos.objects.all()
   criadosEm = [e.criadoEm for e in emps]
@@ -74,6 +76,7 @@ def emprestimos(request):
   
   return render(request, 'emprestimos/index.html', context)
 
+@login_required
 def novoEmprestimo(request):
   emps = Emprestimos.objects.all()
   if request.method != 'POST':
@@ -89,6 +92,7 @@ def novoEmprestimo(request):
 
   return render(request, 'emprestimos/cadastro.html', context)
 
+@login_required
 def conclusao_emprestimo(request, id_emprestimo):
   try:
     emprestimo = Emprestimos.objects.get(id=id_emprestimo)
@@ -106,6 +110,7 @@ def conclusao_emprestimo(request, id_emprestimo):
 
   return render(request, 'emprestimos/remocao.html', context)
 
+@login_required
 def livro_search(request):
   search_text = request.GET.get('search', '')
   if search_text:
@@ -114,6 +119,7 @@ def livro_search(request):
       return JsonResponse({'results': results})
   return JsonResponse({'results': []})
 
+@login_required
 def novo_aluno(request):
   if request.method != 'POST':
      form = AlunoForm()
