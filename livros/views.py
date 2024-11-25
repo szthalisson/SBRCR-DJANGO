@@ -40,7 +40,10 @@ def cadastroLivro(request):
 
 @login_required
 def edicaoLivro(request, id_livro):
-  livro = Livro.objects.get(id=id_livro)
+  try:
+    livro = Livro.objects.get(id=id_livro)
+  except Livro.DoesNotExist:
+    return redirect('livros')
 
   if request.method != 'POST':
     form = LivroForm(instance=livro)
