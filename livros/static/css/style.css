@@ -54,6 +54,11 @@ header h3 {
   border-radius: 10px;
 }
 
+.btn-laranja i {
+  background-color: transparent;
+
+}
+
 .btn-laranja:hover {
   background-color: var(--laranjaHover);
 }
@@ -222,9 +227,10 @@ main h1 {
 /* RODAPE */
 footer {
   height: 70px;
+  width: 100vw;
   display: flex;
-  justify-self: center;
-  align-self: center;
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 
@@ -264,8 +270,8 @@ footer img {
   width: 300px;
 }
 
-.input {
-  width: 300px;
+.input, .select2 {
+  width: 300px !important;
   height: 40px;
   font-size: 16px;
   border-radius: 0 20px 20px 0;
@@ -275,7 +281,16 @@ footer img {
   justify-content: center;
 }
 
-.input input {
+.select2-selection {
+  width: 250px !important;
+  border: none !important;
+}
+
+.select2-selection__arrow {
+  display: none !important;
+}
+
+.input input, .input select {
   font-size: 16px;
   border: none;
   outline: none;
@@ -294,6 +309,22 @@ footer img {
   border-radius: 20px 0 0 20px;
 }
 
+.add-alunoBtn {
+  background-color: var(--laranja);
+  width: 40px;
+  height: 40px;
+  border-radius: 0 20px 20px 0 !important;
+  padding-right: 10px;
+  position: absolute;
+  right: 30px;
+}
+
+.add-alunoBtn i {
+  border-radius: 0 20px 20px 0;
+  background-color: transparent;
+  color: white;
+}
+
 .input input, .input span {
   width: 100%;
   padding-left: 10px;
@@ -306,9 +337,6 @@ footer img {
   align-items: center;
 }
 
-.input:focus {
-  outline: 3px solid var(--laranja);
-}
 
 /* MESSAGEM */
 

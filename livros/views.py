@@ -59,7 +59,7 @@ def remocaoLivro(request, id_livro):
   try:
     livro = Livro.objects.get(id=id_livro)
   except Livro.DoesNotExist:
-    return Http404('Livro não encontrado')
+    return redirect('livros')
 
   if request.method != 'POST':
     form = LivroForm()

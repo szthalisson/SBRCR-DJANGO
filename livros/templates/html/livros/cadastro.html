@@ -29,8 +29,17 @@
           {{form.quantidade}}
         </div>
       </div>
-      <button class="btn-laranja" type="submit" style="width: 300px; margin: 0 auto; cursor: pointer; margin-top: 1rem;">Cadastrar</button>
+      <button class="btn-laranja" id="btn" type="submit" style="width: 300px; margin: 0 auto; cursor: pointer; margin-top: 1rem;" onclick="block()">Cadastrar</button>
     </form>
   </div>
 </main>
+
+<script>
+  function block() {
+    setInterval(() => {
+      document.getElementById("btn").disabled = true;
+    }, 1000);
+    document.getElementById('btn').disabled = false;
+  }
+</script>
 {% endblock %}
