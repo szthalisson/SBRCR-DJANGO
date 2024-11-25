@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<header class="headerConsulta">
+  <h3><a href="{% url 'index' %}" style="color: white;">Sistema Bibliotecário da <span class="titulo-laranja">EEEP Raimundo Célio Rodrigues</span></a></h3>
+  <nav>
+    <a class="btn-laranja" href="{% url 'emprestimos' %}">Empréstimos</a>
+  </nav>
+</header>
+{% endblock %}
+
+{% block content %}
+<main>
+  <h1>Cadastro de empréstimo</h1>
+  <div class="container">
+    <form action="{% url 'novoEmprestimo' %}" method="POST" class="formCadastro">
+      {% csrf_token %}
+      <div class="inputs">
+        {{form.livro}}
+      </div>
+      <button class="btn-laranja" type="submit" style="width: 300px; margin: 0 auto; cursor: pointer; margin-top: 1rem;">Cadastrar</button>
+    </form>
+  </div>
+</main>
+{% endblock %}
+

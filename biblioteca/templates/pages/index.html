@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="mainIndex">
+  <div class="tituloIndex">
+    <h1>Seja bem-vindo(a) à Biblioteca RCR</h1>
+    <a href="{% url 'livros' %}" class="btn-laranja" style="padding: 10px 30px;">Começar</a>
+  </div>
+  <div class="img-logo">
+    <img src="{% static 'imagens/brasao.png' %}" width="450px" alt="Brasão da escola">
+  </div>
+</main>
+{% endblock %}
+
+{% block footer %}
+<div class="iconsFooter">
+  <div class="iconFooter">
+    <i class="bi bi-book-half"></i>
+    <span>Cadastre livros</span>
+  </div>
+  <div class="iconFooter child">
+    <i class="bi bi-person-fill"></i>
+    <span>Cadastre alunos</span>
+  </div>
+  <div class="iconFooter">
+    <i class="bi bi-bookmark"></i>
+    <span>Empréstimos de livros</span>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<header class="headerConsulta">
+  <h3><a href="{% url 'index' %}" style="color: white;">Sistema Bibliotecário da <span class="titulo-laranja">EEEP Raimundo Célio Rodrigues</span></a></h3>
+  <nav>
+    <a href="{% url 'logout' %}" style="margin-right: 1rem; color: white; text-decoration: underline;">Logout</a>
+    <a class="btn-laranja" href="{% url 'livros' %}">Livros</a>
+  </nav>
+</header>
+{% endblock %}
+
+{% block content %}
+<main>
+  {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+      <span class="message {{ message.tags }}" id="message-{{ forloop.counter }}">{{message}}</span>
+      {% endfor %}
+    </div>
+  {% endif %}
+  <h1>Empréstimos</h1>
+  <div class="container">
+    <div class="pesquisa">
+      <form method="POST" action="{% url 'emprestimos' %}" class="form-pesquisa">
+        <button type="submit"><i class="bi bi-search"></i></button>
+        {% csrf_token %}
+        {{form.as_p}}
+      </form>
+      <a class="btn-laranja" href="{% url 'novoEmprestimo' %}"><i class="bi bi-journal-text"></i> Novo empréstimo</a>
+    </div>
+    <div class="conteudo">
+      {%for emp, data in combinado%}
+      <div class="item">
+        <div class="info">
+          <i class="bi bi-book"></i>
+          <span>{{emp.livro.titulo}}</span>
+        </div>
+        <div class="info">
+          <i class="bi bi-backpack2"></i>
+          <span>{{emp.aluno}}</span>
+        </div>
+        <div class="info">
+          <i class="bi bi-person-vcard-fill"></i>
+          <span>{{emp.aluno}}</span>
+        </div>
+        <div class="info">
+          <i class="bi bi-person-vcard-fill"></i>
+          <span>{{data|date:"d/m/Y"}}</span>
+        </div>
+        <div class="opcoes">
+          <a href="" class="editar"><i class="bi bi-pencil-fill"></i></a>
+          <a href="" class="excluir"><i class="bi bi-trash3-fill"></i></a>
+        </div>
+      </div>
+      {% empty %}
+      <div class="item">
+        <span>Nenhum empréstimo cadastrado... <a href="{% url 'cadastro' %}" class="titulo-laranja" style="font-weight: bold;">Adicionar um novo.</a></span>
+      </div>
+      {%endfor%}
+    </div>
+  </div>
+</main>
+{% endblock %}
+
+{% block script %}
+<script>
+  // Espera até que o DOM esteja completamente carregado
+  document.addEventListener('DOMContentLoaded', function () {
+    // Seleciona todas as mensagens exibidas na página
+    const messages = document.querySelectorAll('.message');
+    
+    // Para cada mensagem, adiciona um temporizador para removê-la após 5 segundos
+    messages.forEach(function(message) {
+      setTimeout(function() {
+        message.style.transition = "opacity 0.5s ease"; // Efeito de transição
+        message.style.opacity = 0;  // Torna a mensagem invisível
+        setTimeout(function() {
+          message.remove();  // Remove o elemento da página após a transição
+        }, 500);  // Tempo que aguarda o efeito de opacidade antes de remover (0.5s)
+      }, 3000); // 5000 milissegundos = 5 segundos
+    });
+  });
+</script>
+{% endblock %}

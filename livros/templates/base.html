@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block titlePage %}SBRCR - HOME{% endblock %}</title>
+  {% load static %}
+  {% block css %}<link rel="stylesheet" href="{% static './css/style.css' %}">{% endblock %}
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+  {% block header %}
+  <header class="headerConsulta">
+    <h3><a href="{% url 'index' %}" style="color: white;">Sistema Bibliotecário da <span class="titulo-laranja">EEEP Raimundo Célio Rodrigues</span></a></h3>
+  </header>
+  {% endblock %}
+  {% block content %}{% endblock %}
+  <footer>
+    {% block footer %}
+    <img src="{% static 'imagens/brasao.png' %}" alt="brasão da escola EEEP Raimundo Célio Rodrigues">
+    {% endblock %}
+  </footer>
+  {% block script %}{% endblock %}
+</body>
+</html>
